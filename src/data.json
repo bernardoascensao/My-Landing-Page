@@ -1,0 +1,57 @@
+{
+    "person": {
+        "name": "Bernardo Ascensão",
+        "firstName": "Bernardo",
+        "lastName": "Ascensão",
+        "location": "Lisbon, Portugal",
+        "course": "Software Engineering and Computer Science Student",
+        "occupation": "Student at ISEL",
+        "socials": [
+            {
+                "name": "github",
+                "username": "bernardoascensao"
+            },
+            {
+                "name": "email",
+                "email": "bernardo.santos007@gmail.com"
+            }
+        ]
+    },
+    "about": [
+        "I am a Software Engineering student at Instituto Superior de Engenharia de Lisboa (ISEL), since I was a kid I always have had a passion for computers and technology.",
+        "I love what I do, particularly Web Development. I have been developed some self and academic projects which are available on my GitHub.",
+        "I have experience with programing languages such as Kotlin, JavaScript, Java, C and Python. I am also familiar with many tools and frameworks related to programing.",
+        "Beyond my passion for technology I am also in love with water sports, speccialy surfing, I love beach life. "
+    ],
+    "skills": [
+        {
+            "tittle": "Web Development",
+            "icons": ["React", "Postman", "Webpack", "Express", "Nodejs", "Handlebars", "JavaScript", "CSS", "HTML"],
+            "color": "green",
+            "points": [
+                "Crafted responsive web applications utilizing HTML, CSS, and JavaScript.",
+                "Leveraged React to build interactive and user-friendly web interfaces.",
+                "Utilized Webpack for bundling assets and Postman for API testing."
+            ]
+        },
+        {
+            "tittle": "Databases and Backend",
+            "icons": ["PLpgSQL", "MongoDB", "ElasticSearch", "Nodejs", "Spring", "DBeaver"],
+            "color": "red",
+            "points": [
+                "Developed robust databases to support application functionality.",
+                "Implemented server-side logic using Node.js and Express frameworks.",
+                "Created and consumed APIs to enhance application interactivity."
+            ]
+        },
+        {
+            "tittle": "Programing Languages and Tools",
+            "icons": ["Kotlin", "Java", "Python", "C", "JavaScript", "TypeScript", "Git", "GitHub", "IntelliJ", "PyCharm", "VSCode"],
+            "color": "orange",
+            "points": [
+                "I am familiar with many progaming Languages which allows me to think in different ways to solve a problem.",
+                "I use tools like Git, GitHub, InteliJ IDEA, Visual Studio Code, PyCharm and others."
+            ]
+        }
+    ]
+}

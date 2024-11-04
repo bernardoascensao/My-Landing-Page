@@ -1,23 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import { Routes, Route } from 'react-router-dom';
+import Header from './components/Layouts/header';
+import Home from './components/Page/home'
+import About from './components/Page/about';
+import Works from './components/Page/works';
+import Skills from './components/Page/skills';
+
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='App min-h-screen flex flex-col bg-slate-200'>
+      <Header />
+
+      <main className='flex-grow'>    {/* flex-grow to fill the screen */}
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path='/about' element={<About />}/>
+          <Route path='/works' element={<Works />}/>
+          <Route path='/skills' element={<Skills />}/>
+        </Routes>
+      </main>
+      
     </div>
   );
 }
