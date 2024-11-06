@@ -23,9 +23,12 @@ const SkillList = () => {
                                     <h1 className={`font-medium text-start ${colorMap[it.color] || "text-black"} text-3xl md:text-5xl mb-4`}>{it.tittle}</h1>
                                     <div className='flex justify-around mb-4'>
                                         {it.icons.map((icon, idx) => (
-                                            <span key={idx}>
+                                            <div key={idx} className='group relative'>
                                                 {Icons[icon] || <span className="text-sm">{icon}</span>}
-                                            </span>
+                                                <span className='absolute text-white font-extralight text-xs p-1 rounded-md bg-slate-600 -top-7 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300'>
+                                                    {icon}          {/*tooltip with the name of the tool*/}
+                                                </span>
+                                            </div>
                                         ))}
                                     </div>
                                 </div>
@@ -50,9 +53,12 @@ const SkillList = () => {
                                     <h1 className={`font-medium text-start md:text-end ${colorMap[it.color] || "text-black"} text-3xl md:text-5xl mb-4`}>{it.tittle}</h1>
                                     <div className='flex justify-around mb-4'>
                                         {it.icons.map((icon, idx) => (
-                                            <span key={idx}>
-                                                {Icons[icon] || <span className="text-sm">{icon}</span>}
+                                            <div key={idx} className='group relative'>
+                                            {Icons[icon] || <span className="text-sm">{icon}</span>}
+                                            <span className='absolute text-white font-extralight text-xs p-1 rounded-md bg-slate-600 -top-7 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300'>
+                                                {icon}          {/*tooltip with the name of the tool*/}
                                             </span>
+                                        </div>
                                         ))}
                                     </div>
                                 </div>

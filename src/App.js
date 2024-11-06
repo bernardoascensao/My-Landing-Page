@@ -9,7 +9,7 @@ import Skills from './components/Page/skills';
 
 function App() {
   return (
-    <div className='App min-h-screen flex flex-col bg-slate-200'>
+    <div className='App min-h-screen flex flex-col bg-slate-100'>
       <Header />
 
       <main className='flex-grow'>    {/* flex-grow to fill the screen */}

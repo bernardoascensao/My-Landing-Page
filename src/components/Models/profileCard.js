@@ -1,7 +1,7 @@
 import React from 'react'
-import { FaGithub, FaLinkedin, FaEnvelope, /*FaPaperclip*/ } from 'react-icons/fa';
-import profile_img from '../../assets/images/profile_img.png';
-// import cv from '../../assets/documents/cv_bernardo.pdf'
+import { FaGithub, FaLinkedin, FaEnvelope, FaPaperclip } from 'react-icons/fa';
+import profile_img from '../../assets/images/profile_picture.jpg';
+import cv from '../../assets/documents/CV_Bernardo_EN.pdf'
 import data from "../../data.json";
 
 
@@ -19,9 +19,9 @@ const SocialLinks = () => {
       <a href={`mailto:${email}`} target="_blank" rel="noopener noreferrer">
         <FaEnvelope className="h-10 w-10 text-blue-400 hover:text-blue-600 transition-colors duration-300" />
       </a>
-      {/* <a href={cv} target="_blank" rel="noopener noreferrer">
+      <a href={cv} target="_blank" rel="noopener noreferrer">
         <FaPaperclip className="h-10 w-10 text-blue-400 hover:text-blue-600 transition-colors duration-300" />
-      </a> */}
+      </a>
     </div>
   );
 }
