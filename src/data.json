@@ -46,7 +46,7 @@
         },
         {
             "tittle": "Programing Languages and Tools",
-            "icons": ["Kotlin", "Java", "Python", "C", "JavaScript", "TypeScript", "Git", "GitHub", "IntelliJ", "PyCharm", "VSCode"],
+            "icons": ["Kotlin", "Java", "Python", "C", "JavaScript", "TypeScript", "Git", "GitHub", "AndroidStudio", "IntelliJ", "PyCharm", "VSCode"],
             "color": "orange",
             "points": [
                 "I am familiar with many progaming Languages which allows me to think in different ways to solve a problem.",

@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@google/model-viewer": "^4.0.0",
     "@heroicons/react": "^2.1.5",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
@@ -15,6 +14,7 @@
     "react-intersection-observer": "^9.13.1",
     "react-router-dom": "^6.27.0",
     "react-scripts": "5.0.1",
+    "three": "^0.171.0",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -33,12 +33,14 @@
     "production": [
       ">0.2%",
       "not dead",
-      "not op_mini all"
+      "not op_mini all",
+      "Safari >= 12"
     ],
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",
-      "last 1 safari version"
+      "last 1 safari version",
+      "Safari >= 12"
     ]
   },
   "devDependencies": {

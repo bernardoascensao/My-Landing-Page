@@ -28,7 +28,6 @@ const ProjectList = () => {
     fetch(`https://api.github.com/users/${username}/repos`)
       .then(response => response.json())
       .then(async (repos) => {
-        console.log(repos)
         const projectData = await Promise.all(repos.map(async (repo) => {
           const languagesResponse = await fetch(repo.languages_url);
           const languagesData = await languagesResponse.json();

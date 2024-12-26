@@ -14,7 +14,7 @@ const Works = () => {
 
   return (
     <div className='w-full mt-10'>
-      <div className='h-[90vh] flex flex-col-reverse md:flex-row items-center justify-end gap-5 md:justify-around mx-4 md:mx-24 md:mb-10 mt-8 md:my-0 space-y-8 md:space-y-0'>
+      <div className='h-[90vh] flex flex-col md:flex-row items-center justify-start gap-5 md:justify-around mx-4 md:mx-24 md:mb-10 mt-8 md:my-0 space-y-8 md:space-y-0'>
         {/* Video Section */}
         <motion.div 
           className='w-full md:w-[50%] flex justify-center'
