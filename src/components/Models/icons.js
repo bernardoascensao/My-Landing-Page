@@ -24,7 +24,8 @@ const Icons = {
     IntelliJ: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/intellij/intellij-original.svg" alt="IntelliJ" className='text-black w-6 h-6' />,
     PyCharm: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pycharm/pycharm-original.svg" alt="PyCharm" className='text-green-500 w-6 h-6' />,
     VSCode: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vscode/vscode-original.svg" alt="Visual Studio Code" className='text-blue-500 w-6 h-6' />,
-    AndroidStudio: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/androidstudio/androidstudio-original.svg" alt="Android Studio" className='text-blue-500 w-6 h-6' />
+    AndroidStudio: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/androidstudio/androidstudio-original.svg" alt="Android Studio" className='text-blue-500 w-6 h-6' />,
+    Shell: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/bash/bash-original.svg" alt="Shell" className='text-blue-500 w-6 h-6' />,
 };
 
 export default Icons;
