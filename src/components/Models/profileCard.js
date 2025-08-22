@@ -1,7 +1,7 @@
 import React from 'react'
 import { FaGithub, FaLinkedin, FaEnvelope, FaPaperclip } from 'react-icons/fa';
 import profile_img from '../../assets/images/profile_picture.jpg';
-import cv from '../../assets/documents/CV_Bernardo_EN.pdf'
+import cv from '../../assets/documents/CV_Bernardo_Ascensao_PT.pdf'
 import data from "../../data.json";
 
 
