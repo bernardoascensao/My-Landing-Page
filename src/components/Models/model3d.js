@@ -48,7 +48,7 @@ export const Model3d = () => {
     });
 
     // OrbitControl
-    const controls = new OrbitControls(camera, renderer.domElement)
+    // const controls = new OrbitControls(camera, renderer.domElement)
 
     const animate = () => {
       if (loadedModel) {
