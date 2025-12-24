@@ -55,7 +55,7 @@ const Works = () => {
         initial={{ opacity: 0, y: 70 }} 
         animate={inView ? { opacity: 1, y: 0 } : {}} 
         transition={{ duration: 0.8 }} 
-        className="mx-4 md:mx-24"
+        className="md:mx-24"
       >
         <ProjectList />
       </motion.div>

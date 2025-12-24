@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-// import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 export const Model3d = () => {
   const canvasRef = useRef(null)
@@ -48,7 +48,8 @@ export const Model3d = () => {
     });
 
     // OrbitControl
-    // const controls = new OrbitControls(camera, renderer.domElement)
+    // eslint-disable-next-line no-unused-vars
+    const controls = new OrbitControls(camera, renderer.domElement)
 
     const animate = () => {
       if (loadedModel) {
