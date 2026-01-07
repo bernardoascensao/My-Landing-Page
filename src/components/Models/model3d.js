@@ -1,77 +1,72 @@
-import React, { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import * as THREE from 'three';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import { useGLTF, useScroll } from '@react-three/drei';
+import { useFrame } from '@react-three/fiber';
 
 export const Model3d = () => {
-  const canvasRef = useRef(null)
+  const groupRef = useRef();
+  const scroll = useScroll();
+  const { scene } = useGLTF('/assets/scene.gltf');
 
-  useEffect(() => {
-    // Scene
-    const scene = new THREE.Scene()
+  useFrame((state) => {
+    const offset = scroll.offset; // 0 a 1
+    const { width } = state.viewport; // Largura do mundo 3D baseada na janela
 
-    // Camera
-    const camera = new THREE.PerspectiveCamera(50, 1, 1, 1000)
-    camera.position.z = 96
+    //let targetX = groupRef.current.position.x;
+    //let targetY = groupRef.current.position.y;
 
-    // Renderer
-    const canvas = canvasRef.current
-    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true })
-    renderer.setClearColor(0x000000, 0) // Transparent
+    // Definimos os pontos de paragem baseados nas secções
+    const aboutStart = 0.08;
+    const aboutCentered = 0.33;
+    const worksCentered = 0.63;
+    const heightAdjustment = 1.5; // (Equivale aos teus 0.05 * 30)
 
-    // Synchronize canvas size with its parent
-    const setCanvasSize = () => {
-      const { width, height } = canvas.getBoundingClientRect()
-      renderer.setSize(width, height, false); // false to avoid resetting CSS width/height
-      camera.aspect = width / height
-      camera.updateProjectionMatrix()
-    };
-    setCanvasSize()
+    const responsiveX = width > 10 ? 6 : width / 3;
 
-    // Ambient light
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5)
-    scene.add(ambientLight)
+    let targetX = responsiveX;
+    let targetY = heightAdjustment;
 
-    // Spot light
-    const spotLight = new THREE.SpotLight(0xffffff, 1)
-    spotLight.position.set(0, 64, 32)
-    scene.add(spotLight)
+    if (groupRef.current) {
+      // 1. VISIBILIDADE: Só aparece quando o About começa a entrar no ecrã
+      groupRef.current.visible = offset > aboutStart;
 
-    // Import 3D model
-    let loadedModel;
-    const gltfLoader = new GLTFLoader()
-    gltfLoader.load('/assets/scene.gltf', (gltfScene) => {
-      loadedModel = gltfScene
-      gltfScene.scene.position.y = 3
-      gltfScene.scene.scale.set(30, 30, 30)
-      scene.add(gltfScene.scene)
-    });
-
-    // OrbitControl
-    // eslint-disable-next-line no-unused-vars
-    const controls = new OrbitControls(camera, renderer.domElement)
-
-    const animate = () => {
-      if (loadedModel) {
-        loadedModel.scene.rotation.y += 0.003
+      // --- LÓGICA DO EIXO Y e EIXO X ---
+      if (offset < aboutCentered) {
+        // lógica de "teto"
+        // desde que o about aparece até o works começar a aparecer o modelo 3d acompanha o scroll
+        targetY = (offset - aboutCentered) * 30 + heightAdjustment;
+        targetX = responsiveX;
+      } 
+      else if (offset >= aboutCentered && offset < worksCentered) {
+        // começou a aparecer o works, por isso começa a transação para baixo
+        const travelProgress = scroll.range(aboutCentered, worksCentered - aboutCentered);
+        targetX = THREE.MathUtils.lerp(responsiveX, -responsiveX, travelProgress);
+        targetY = heightAdjustment;
       }
-      renderer.render(scene, camera)
-      requestAnimationFrame(animate)
-    };
-    animate();
+      else {
+        // lógica de "chão"
+        // targetY = (-1 * ((worksCentered - offset) - heightAdjustment)) * 30;
+        targetY = -1 * (worksCentered - offset) * 30 + heightAdjustment;
+        targetX = -responsiveX;
+      }
 
-    // Resize handler
-    const handleResize = () => {
-      setCanvasSize()
-    };
-    window.addEventListener('resize', handleResize)
+      const floatEffect = Math.sin(state.clock.elapsedTime) * 0.1;
 
-    // Cleanup
-    return () => {
-      window.removeEventListener('resize', handleResize)
-      renderer.dispose()
-    };
-  }, []);
 
-  return <canvas ref={canvasRef} className="h-full w-full" />;
+      groupRef.current.position.x = targetX //THREE.MathUtils.lerp(groupRef.current.position.x, targetX, 0.1);
+      groupRef.current.position.y = THREE.MathUtils.lerp(groupRef.current.position.y, targetY + floatEffect, 0.1);
+      
+      // Rotação constante
+      // groupRef.current.rotation.y += 0.005;
+    }
+  });
+
+  return (
+    <primitive 
+      ref={groupRef}
+      object={scene} 
+      scale={[3, 3, 3]} 
+      position={[6, 0, 0]} 
+    />
+  );
 };

@@ -1,9 +1,7 @@
-import React from 'react'
 import { FaGithub } from 'react-icons/fa';
 import ProjectList from '../Models/projectList';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import gifImage from '../../assets/videos/animation1.gif'
 
 
 const Works = () => {
@@ -16,14 +14,7 @@ const Works = () => {
     <div className='w-full mt-10'>
       <div className='h-[90vh] flex flex-col md:flex-row items-center justify-start gap-5 md:justify-around mx-4 md:mx-24 md:mb-10 mt-8 md:my-0 space-y-8 md:space-y-0'>
         {/* Video Section */}
-        <motion.div 
-          className='w-full md:w-[50%] flex justify-center'
-          initial={{ opacity: 0, x: -100 }} 
-          animate={{ opacity: 1, x: 0 }} 
-          transition={{ duration: 0.8 }}
-        >
-          <img src={gifImage} alt="GIF animado" className="w-full h-auto md:h-full" />
-        </motion.div>
+        <div className='w-full md:w-[50%] h-full'></div>
 
         {/* Text and GitHub Button Section */}
         <motion.div 
