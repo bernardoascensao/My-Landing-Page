@@ -1,11 +1,9 @@
-import React/*, {useState} */from 'react'
 import { Link, NavLink } from 'react-router-dom';
 import { HomeIcon, UserIcon, CogIcon, CodeBracketIcon, /* Bars3Icon, XMarkIcon */ } from '@heroicons/react/24/outline'; // Import the icons you need
 import data from "../../data.json";
 
 
 const Header = () => {
-  // const [menuOpen, setMenuOpen] = useState(false);
   return (
     <nav className='h-[10vh] w-full flex flex-col gap-4 md:flex-col lg:flex-row items-center justify-between mb-5 lg:mb-0 px-10 md:px-20 pt-5'>
       <div>

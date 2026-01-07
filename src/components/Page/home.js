@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 
 const Home = () => {
   return (
-    <div className='h-auto lg:h-[90vh] my-16 lg:my-0 flex flex-col lg:flex-row gap-y-40 items-center justify-around px-10 md:px-24'>
+    <div className='h-auto lg:h-[100vh] my-16 lg:my-0 flex flex-col lg:flex-row gap-y-40 items-center justify-around px-10 md:px-24'>
       <motion.div
         initial={{ opacity: 0, x: -50 }}        // starts invisible and -50 left
         animate={{ opacity: 1, x: 0 }}          // moves to center and opacity 1

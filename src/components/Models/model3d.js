@@ -3,60 +3,54 @@ import * as THREE from 'three';
 import { useGLTF, useScroll } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 
-export const Model3d = () => {
+export const Model3d = ({ totalPages }) => {
   const groupRef = useRef();
   const scroll = useScroll();
   const { scene } = useGLTF('/assets/scene.gltf');
 
   useFrame((state) => {
-    const offset = scroll.offset; // 0 a 1
-    const { width } = state.viewport; // Largura do mundo 3D baseada na janela
+    const offset = scroll.offset; // 0 to 1
+    const { width } = state.viewport; // Width of the 3D world based on the window
 
-    //let targetX = groupRef.current.position.x;
-    //let targetY = groupRef.current.position.y;
-
-    // Definimos os pontos de paragem baseados nas secções
     const aboutStart = 0.08;
-    const aboutCentered = 0.33;
-    const worksCentered = 0.63;
-    const heightAdjustment = 1.5; // (Equivale aos teus 0.05 * 30)
+
+    const aboutCentered = 1 / (totalPages - 1);
+    const worksCentered = 2 / (totalPages - 1);
 
     const responsiveX = width > 10 ? 6 : width / 3;
 
     let targetX = responsiveX;
-    let targetY = heightAdjustment;
+    let targetY = 0;
 
     if (groupRef.current) {
-      // 1. VISIBILIDADE: Só aparece quando o About começa a entrar no ecrã
+      // 1. VISIBILITY: Only appears when About starts to enter the screen
       groupRef.current.visible = offset > aboutStart;
-
-      // --- LÓGICA DO EIXO Y e EIXO X ---
+      
+      // --- Y AXIS AND X AXIS LOGIC ---
       if (offset < aboutCentered) {
-        // lógica de "teto"
-        // desde que o about aparece até o works começar a aparecer o modelo 3d acompanha o scroll
-        targetY = (offset - aboutCentered) * 30 + heightAdjustment;
+        // "ceiling" logic
+        // from when about appears until works starts to appear, the 3d model follows the scroll
+        targetY = (offset - aboutCentered) * 50;
         targetX = responsiveX;
       } 
       else if (offset >= aboutCentered && offset < worksCentered) {
-        // começou a aparecer o works, por isso começa a transação para baixo
+        // works started to appear, so the transition down begins
         const travelProgress = scroll.range(aboutCentered, worksCentered - aboutCentered);
         targetX = THREE.MathUtils.lerp(responsiveX, -responsiveX, travelProgress);
-        targetY = heightAdjustment;
+        targetY = 0;  // keep the model in the center of the screen Y-wise
       }
       else {
-        // lógica de "chão"
-        // targetY = (-1 * ((worksCentered - offset) - heightAdjustment)) * 30;
-        targetY = -1 * (worksCentered - offset) * 30 + heightAdjustment;
+        // "ground" logic
+        targetY = -1 * (worksCentered - offset) * 50;
         targetX = -responsiveX;
       }
 
       const floatEffect = Math.sin(state.clock.elapsedTime) * 0.1;
 
-
       groupRef.current.position.x = targetX //THREE.MathUtils.lerp(groupRef.current.position.x, targetX, 0.1);
       groupRef.current.position.y = THREE.MathUtils.lerp(groupRef.current.position.y, targetY + floatEffect, 0.1);
       
-      // Rotação constante
+      // Constant rotation
       // groupRef.current.rotation.y += 0.005;
     }
   });

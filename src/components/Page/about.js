@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 
 const About = () => {
   return (
-    <div className='w-full h-screen px-10 flex flex-col md:flex-row items-center'>
+    <div className='w-full h-[100vh] px-10 flex flex-col md:flex-row items-center'>
         {/* Lado Esquerdo: Texto */}
         <motion.div 
           className='w-full md:w-[50%] md:pl-20' 
