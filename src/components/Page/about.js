@@ -3,8 +3,8 @@ import { motion } from 'framer-motion';
 
 const About = () => {
   return (
-    <div className='w-full h-[100vh] px-10 flex flex-col md:flex-row items-center'>
-        {/* Lado Esquerdo: Texto */}
+    <div className='w-full h-[100vh] pt-[10vh] px-10 flex flex-col md:flex-row items-center'>
+        {/* Left side: text */}
         <motion.div 
           className='w-full md:w-[50%] md:pl-20' 
           initial={{ opacity: 0, x: -50 }} 
@@ -17,7 +17,7 @@ const About = () => {
             ))}
         </motion.div>
 
-        {/* Lado Direito: VAZIO (Onde o modelo 3D aparecerá em x: 2) */}
+        {/* Right side: empty (3D model appears at x: 2) */}
         <div className='w-full md:w-[50%]'></div>
     </div>
   )

@@ -1,0 +1,58 @@
+[
+  {
+    "id": 1,
+    "name": "portfolio-3d",
+    "description": "Personal portfolio built with React, Three.js and React Three Fiber.",
+    "url": "https://github.com/username/portfolio-3d",
+    "languages": ["JavaScript", "HTML", "CSS"]
+  },
+  {
+    "id": 2,
+    "name": "task-manager-api",
+    "description": "REST API for managing tasks with authentication and JWT.",
+    "url": "https://github.com/username/task-manager-api",
+    "languages": ["JavaScript"]
+  },
+  {
+    "id": 3,
+    "name": "weather-app",
+    "description": "Weather forecast app consuming OpenWeather API with clean UI.",
+    "url": "https://github.com/username/weather-app",
+    "languages": ["JavaScript", "CSS"]
+  },
+  {
+    "id": 4,
+    "name": "chat-app",
+    "description": "Real-time chat application using WebSockets.",
+    "url": "https://github.com/username/chat-app",
+    "languages": ["JavaScript"]
+  },
+  {
+    "id": 5,
+    "name": "ecommerce-ui",
+    "description": "E-commerce frontend with responsive design and product filtering.",
+    "url": "https://github.com/username/ecommerce-ui",
+    "languages": ["JavaScript", "HTML", "CSS"]
+  },
+  {
+    "id": 6,
+    "name": "data-visualization",
+    "description": "Interactive charts and dashboards using modern JS libraries.",
+    "url": "https://github.com/username/data-visualization",
+    "languages": ["JavaScript"]
+  },
+  {
+    "id": 7,
+    "name": "game-engine-prototype",
+    "description": "Small experimental 2D game engine built from scratch.",
+    "url": "https://github.com/username/game-engine-prototype",
+    "languages": ["JavaScript"]
+  },
+  {
+    "id": 8,
+    "name": "landing-page",
+    "description": "Modern landing page with animations and accessibility in mind.",
+    "url": "https://github.com/username/landing-page",
+    "languages": ["HTML", "CSS"]
+  }
+]

@@ -12,19 +12,17 @@ export const Model3d = ({ totalPages }) => {
     const offset = scroll.offset; // 0 to 1
     const { width } = state.viewport; // Width of the 3D world based on the window
 
-    const aboutStart = 0.08;
-
     const aboutCentered = 1 / (totalPages - 1);
     const worksCentered = 2 / (totalPages - 1);
 
-    const responsiveX = width > 10 ? 6 : width / 3;
+    const responsiveX = width > 15 ? 6 : 4;
 
     let targetX = responsiveX;
     let targetY = 0;
 
     if (groupRef.current) {
       // 1. VISIBILITY: Only appears when About starts to enter the screen
-      groupRef.current.visible = offset > aboutStart;
+      groupRef.current.visible = true;
       
       // --- Y AXIS AND X AXIS LOGIC ---
       if (offset < aboutCentered) {

@@ -11,9 +11,9 @@ const Works = () => {
   });
 
   return (
-    <div className='w-full mt-10'>
-      <div className='h-[100vh] flex flex-col md:flex-row items-center justify-start gap-5 md:justify-around mx-4 md:mx-24 md:mb-10 mt-8 md:my-0 space-y-8 md:space-y-0'>
-        {/* Video Section */}
+    <div className='w-full'>
+      <div className='h-[100vh] pt-[10vh] flex flex-col md:flex-row items-center justify-start gap-5 md:justify-around mx-4 md:mx-24 mt-8 md:my-0 space-y-8 md:space-y-0'>
+        {/* Empty div */}
         <div className='w-full md:w-[50%] h-full'></div>
 
         {/* Text and GitHub Button Section */}
