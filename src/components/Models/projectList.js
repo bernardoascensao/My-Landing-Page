@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
 import Icons from "../Models/icons"
 import data from "../../data.json"
+import fakeProjects from '../../fakeProjects.json';
+
+const IS_DEV = true;
 
 const ProjectCard = ({ name, description, url, languages = [] }) => {
   return (
@@ -10,7 +13,7 @@ const ProjectCard = ({ name, description, url, languages = [] }) => {
         snap-center 
         flex-shrink-0 
         shadow-md rounded-lg p-5 m-4 w-64 h-65 border-blue-400 border-2 
-        font-lexend text-slate-700 hover:bg-slate-200 flex flex-col overflow-hidden
+        font-lexend text-white hover:bg-slate-700 flex flex-col overflow-hidden
       " 
       target="_blank" 
       rel="noopener noreferrer"
@@ -27,7 +30,7 @@ const ProjectCard = ({ name, description, url, languages = [] }) => {
         ))}
       </div>
 
-      <p className="mt-2 text-sm text-slate-600 line-clamp-4 overflow-hidden">
+      <p className="mt-2 text-sm text-white line-clamp-4 overflow-hidden">
         {description || "No description available."}
       </p>
 
@@ -45,6 +48,11 @@ const ProjectList = () => {
   const [projects, setProjects] = useState([]);
 
   useEffect(() => {
+    if (IS_DEV) {
+      setProjects(fakeProjects);
+      return;
+    }
+
     const username = data.person.socials.filter((it) => it.name === "github")[0]?.username;
     fetch(`https://api.github.com/users/${username}/repos`)
       .then(response => response.json())
@@ -86,8 +94,6 @@ const ProjectList = () => {
       md:overflow-visible 
       md:px-0
       md:[mask-image:none]
-      
-      mb-32
     ">
       {projects.map(project => (
         project.languages.length !== 0 && (
