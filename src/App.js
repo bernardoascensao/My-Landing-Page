@@ -19,8 +19,9 @@ function ScrollCapture({ onScrollEl }) {
 }
 
 function App() {
-  const [pages, setPages] = useState(4); // Start with a default of 4 pages
+  const [pages, setPages] = useState(4);
   const [scrollEl, setScrollEl] = useState(null);
+  const [checkpoints, setCheckpoints] = useState({ about: 0.33, works: 0.66 });
   const contentRef = useRef();
 
   const scrollToSection = (id) => {
@@ -55,14 +56,21 @@ function App() {
     const updatePages = () => {
       if (!contentRef.current) return;
 
-      const contentHeight = contentRef.current.scrollHeight;
-      const viewportHeight = window.innerHeight;
-      const pagesNeeded = Math.max(
-        1,
-        contentHeight / viewportHeight
-      );
+      const totalHeight = contentRef.current.scrollHeight;
+      const vh = window.innerHeight;
+      const scrollableRange = totalHeight - vh;
+      
+      setPages(totalHeight / vh);
 
-      setPages(pagesNeeded);
+      // Measure the sections inside contentRef (the invisible one)
+      const sections = contentRef.current.querySelectorAll('section');
+      if (sections.length >= 3) {
+        setCheckpoints({
+          // The offsetTop of each section divided by the total scroll distance
+          about: sections[1].offsetTop / scrollableRange,
+          works: sections[2].offsetTop / scrollableRange,
+        });
+      }
     };
 
     updatePages();
@@ -104,7 +112,7 @@ function App() {
           <ScrollControls key={pages} pages={pages} damping={0.2}>
             <ScrollCapture onScrollEl={setScrollEl} />
 
-            <Model3d totalPages={pages} />
+            <Model3d aboutCentered={checkpoints.about} worksCentered={checkpoints.works} />
             <Scroll html style={{ width: '100%' }}>
               <section id="home"><Home /></section>
               <section id="about"><About /></section>
