@@ -1,29 +1,30 @@
-import React from 'react'
 import { FaGithub } from 'react-icons/fa';
 import ProjectList from '../Models/projectList';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import gifImage from '../../assets/videos/animation1.gif'
-
+import { useEffect, useState } from 'react';
 
 const Works = () => {
+  const [isMobile, setIsMobile] = useState(false);
+
   const { ref, inView } = useInView({
     triggerOnce: true, // Trigger once to avoid re-animating on further scrolls
-    threshold: 0.1,    // When 10% of the element is visible
+    threshold: 0.05,    // When 5% of the element is visible
   });
 
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile(); // Check initial
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   return (
-    <div className='w-full mt-10'>
-      <div className='h-[90vh] flex flex-col md:flex-row items-center justify-start gap-5 md:justify-around mx-4 md:mx-24 md:mb-10 mt-8 md:my-0 space-y-8 md:space-y-0'>
-        {/* Video Section */}
-        <motion.div 
-          className='w-full md:w-[50%] flex justify-center'
-          initial={{ opacity: 0, x: -100 }} 
-          animate={{ opacity: 1, x: 0 }} 
-          transition={{ duration: 0.8 }}
-        >
-          <img src={gifImage} alt="GIF animado" className="w-full h-auto md:h-full" />
-        </motion.div>
+    <div className='w-full'>
+      <div className='h-[64vh] pt-[10vh] md:h-[100vh] flex flex-col md:flex-row items-center justify-center gap-5 md:justify-end mx-4 md:mx-24 md:my-0 space-y-8 md:space-y-0'>
 
         {/* Text and GitHub Button Section */}
         <motion.div 
@@ -49,16 +50,31 @@ const Works = () => {
         </motion.div>
       </div>
 
-      {/* Project List */}
-      <motion.div 
-        ref={ref} 
-        initial={{ opacity: 0, y: 70 }} 
-        animate={inView ? { opacity: 1, y: 0 } : {}} 
-        transition={{ duration: 0.8 }} 
-        className="md:mx-24"
-      >
-        <ProjectList />
-      </motion.div>
+      {/* Project List only visible in mobile mode */}
+      {isMobile && (
+        <motion.div 
+          ref={ref} 
+          initial={{ opacity: 0, y: 70 }} 
+          animate={inView ? { opacity: 1, y: 0 } : {}} 
+          transition={{ duration: 0.8 }} 
+          className="md:mx-24"
+        >
+          <ProjectList />
+        </motion.div>
+      )}
+
+      {/* Project List only visible in desktop mode */}
+      {!isMobile && (
+        <motion.div 
+          ref={ref} 
+          initial={{ opacity: 0, y: 70 }} 
+          animate={inView ? { opacity: 1, y: 0 } : {}} 
+          transition={{ duration: 0.8 }} 
+          className="md:mx-24"
+        >
+          <ProjectList />
+        </motion.div>
+      )}
     </div>
   )
 }
