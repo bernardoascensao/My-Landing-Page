@@ -3,8 +3,6 @@ import Icons from "../Models/icons"
 import data from "../../data.json"
 import fakeProjects from '../../fakeProjects.json';
 
-const IS_DEV = true;
-
 const ProjectCard = ({ name, description, url, languages = [] }) => {
   return (
     <a 
@@ -87,32 +85,31 @@ const ProjectList = () => {
   const [projects, setProjects] = useState([]);
 
   useEffect(() => {
-    if (IS_DEV) {
-      setProjects(fakeProjects);
+    if (process.env.NODE_ENV === 'production') {
+      const username = data.person.socials.filter((it) => it.name === "github")[0]?.username;
+      fetch(`https://api.github.com/users/${username}/repos`)
+        .then(response => response.json())
+        .then(async (repos) => {
+          const projectData = await Promise.all(repos.map(async (repo) => {
+            const languagesResponse = await fetch(repo.languages_url);
+            const languagesData = await languagesResponse.json();
+            const languages = Object.keys(languagesData);
+            
+            return {
+              id: repo.id,
+              name: repo.name,
+              description: repo.description,
+              url: repo.html_url,
+              languages,
+            };
+          }));
+          
+          setProjects(projectData);
+        })
+        .catch(error => console.error('Error fetching data from GitHub:', error));
       return;
     }
-
-    const username = data.person.socials.filter((it) => it.name === "github")[0]?.username;
-    fetch(`https://api.github.com/users/${username}/repos`)
-      .then(response => response.json())
-      .then(async (repos) => {
-        const projectData = await Promise.all(repos.map(async (repo) => {
-          const languagesResponse = await fetch(repo.languages_url);
-          const languagesData = await languagesResponse.json();
-          const languages = Object.keys(languagesData);
-          
-          return {
-            id: repo.id,
-            name: repo.name,
-            description: repo.description,
-            url: repo.html_url,
-            languages,
-          };
-        }));
-        
-        setProjects(projectData);
-      })
-      .catch(error => console.error('Error fetching data from GitHub:', error));
+    setProjects(fakeProjects);    
   }, []);
 
   return (
