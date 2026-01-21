@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import Icons from "../Models/icons"
 import data from "../../data.json"
 import fakeProjects from '../../fakeProjects.json';
@@ -83,56 +83,76 @@ const ProjectCard = ({ name, description, url, languages = [] }) => {
 
 const ProjectList = () => {
   const [projects, setProjects] = useState([]);
+  const scrollRef = useRef(null); // Ref to control the scroll element
+
+  // Function to scroll the carousel
+  const scroll = (direction) => {
+    if (scrollRef.current) {
+      const { clientWidth } = scrollRef.current;
+      // Scroll exactly the visible size of the container
+      const scrollAmount = direction === 'left' ? -clientWidth : clientWidth;
+      scrollRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    }
+  };
 
   useEffect(() => {
     if (process.env.NODE_ENV === 'production') {
-      const username = data.person.socials.filter((it) => it.name === "github")[0]?.username;
+      const username = data.person.socials.find((it) => it.name === "github")?.username;
       fetch(`https://api.github.com/users/${username}/repos`)
         .then(response => response.json())
         .then(async (repos) => {
           const projectData = await Promise.all(repos.map(async (repo) => {
             const languagesResponse = await fetch(repo.languages_url);
             const languagesData = await languagesResponse.json();
-            const languages = Object.keys(languagesData);
-            
             return {
               id: repo.id,
               name: repo.name,
               description: repo.description,
               url: repo.html_url,
-              languages,
+              languages: Object.keys(languagesData),
             };
           }));
-          
-          setProjects(projectData);
+          setProjects(projectData.filter(p => p.languages.length > 0));
         })
-        .catch(error => console.error('Error fetching data from GitHub:', error));
+        .catch(error => console.error('Error:', error));
       return;
     }
     setProjects(fakeProjects);    
   }, []);
 
   return (
-    <div className="
-      w-full 
-      flex 
-      /* Mobile: Horizontal scroll, mandatory snap, and side padding with gradient mask */
-      overflow-x-auto 
-      snap-x 
-      snap-mandatory 
-      gap-2
-      px-6
-      [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]
-      
-      /* Desktop: Back to normal (wrap, with no horizontal scroll, centered) */
-      md:flex-wrap 
-      md:justify-center 
-      md:overflow-visible 
-      md:px-0
-      md:[mask-image:none]
-    ">
-      {projects.map(project => (
-        project.languages.length !== 0 && (
+    <div className="relative w-full group">
+      {/* Left Button (Only appears if there are many projects and on desktop) */}
+      {projects.length > 3 && (
+        <button 
+          onClick={() => scroll('left')}
+          className="absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-blue-500/20 hover:bg-blue-500/50 p-2 rounded-full hidden md:block backdrop-blur-sm transition-all"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+          </svg>
+        </button>
+      )}
+
+      {/* Scroll Container */}
+      <div 
+        ref={scrollRef}
+        className="
+          w-full 
+          flex 
+          overflow-x-auto 
+          snap-x 
+          snap-mandatory 
+          gap-2
+          px-6
+          scrollbar-hide
+          [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]
+          md:[mask-image:none]
+          /* Desktop: We keep horizontal scroll but hide the bar to use the buttons */
+          md:overflow-x-hidden 
+        "
+      >
+        {projects.map(project => (
           <ProjectCard
             key={project.id}
             name={project.name}
@@ -140,8 +160,25 @@ const ProjectList = () => {
             url={project.url}
             languages={project.languages}
           />
-        )
-      ))}
+        ))}
+      </div>
+
+      {/* Right Button */}
+      {projects.length > 3 && (
+        <button 
+          onClick={() => scroll('right')}
+          className="absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-blue-500/20 hover:bg-blue-500/50 p-2 rounded-full hidden md:block backdrop-blur-sm transition-all"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+          </svg>
+        </button>
+      )}
+
+      {/* Visual indicator for Mobile (Optional) */}
+      <div className="text-center mt-4 md:hidden text-blue-400 text-xs animate-pulse">
+        Swipe to see more →
+      </div>
     </div>
   );
 };
