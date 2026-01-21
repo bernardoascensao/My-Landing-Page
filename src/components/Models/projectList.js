@@ -9,33 +9,72 @@ const ProjectCard = ({ name, description, url, languages = [] }) => {
   return (
     <a 
       href={url} 
+      target="_blank"
+      rel="noopener noreferrer"
       className="
         snap-center 
-        flex-shrink-0 
-        shadow-md rounded-lg p-5 m-4 w-64 h-65 border-blue-400 border-2 
-        font-lexend text-white hover:bg-slate-700 flex flex-col overflow-hidden
-      " 
-      target="_blank" 
-      rel="noopener noreferrer"
+        flex-shrink-0
+        flex flex-col
+
+        w-56 md:w-64
+        min-h-40 md:min-h-56
+
+        p-4 md:p-5
+        m-3
+
+        border-2 border-blue-400
+        rounded-lg
+        shadow-md
+        font-lexend
+        text-white
+        hover:bg-slate-700
+      "
     >
-      <h3 className="text-lg font-bold mb-2 break-words line-clamp-1" title={name}>
+      {/* Title */}
+      <h3
+        className="
+          font-bold
+          text-base md:text-lg
+          mb-2
+          break-words
+          line-clamp-1
+        "
+        title={name}
+      >
         {name}
       </h3>
 
-      <div className="flex space-x-2 py-3 border-t-[1px] border-blue-400 min-h-[50px]">
+      {/* Languages */}
+      <div className="
+        flex space-x-2
+        py-2
+        border-t border-blue-400
+        min-h-[44px]
+      ">
         {languages.map((lang, idx) => (
           <span key={idx} title={lang}>
-            {Icons[lang] || <span className="text-xs">{lang}</span>}
+            {Icons[lang] || (
+              <span className="text-[10px] md:text-xs">{lang}</span>
+            )}
           </span>
         ))}
       </div>
 
-      <p className="mt-2 text-sm text-white line-clamp-4 overflow-hidden">
+      {/* Description */}
+      <p
+        className="
+          mt-2
+          text-xs md:text-sm
+          text-white
+          line-clamp-3 md:line-clamp-4
+        "
+      >
         {description || "No description available."}
       </p>
 
-      <div className="mt-auto pt-4">
-        <span className="text-blue-500 text-xs font-bold">
+      {/* Footer */}
+      <div className="mt-auto pt-3">
+        <span className="text-blue-500 text-[11px] md:text-xs font-bold">
           View on GitHub →
         </span>
       </div>
