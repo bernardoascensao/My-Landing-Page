@@ -14,10 +14,10 @@ const Header = ({ scrollToSection }) => {
     <nav className="
       fixed top-0 left-0 z-50
       h-[10vh] w-full
-      flex flex-col gap-4
+      flex flex-col gap-1
       md:flex-col lg:flex-row
       items-center justify-between
-      px-10 md:px-20 pt-5
+      md:px-20 pt-4
       bg-black bg-opacity-50 backdrop-blur
     ">
       <div>
