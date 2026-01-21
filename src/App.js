@@ -60,7 +60,7 @@ function App() {
       const vh = window.innerHeight;
       const scrollableRange = totalHeight - vh;
       
-      setPages(totalHeight / vh);
+      setPages((totalHeight / vh) + 0.2); // add a small offset to ensure enough space in case the browser render content before measuring
 
       // Measure the sections inside contentRef (the invisible one)
       const sections = contentRef.current.querySelectorAll('section');
